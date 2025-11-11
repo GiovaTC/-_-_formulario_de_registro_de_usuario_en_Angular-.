@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css',
+  styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent {
   registroForm: FormGroup;
@@ -19,7 +22,7 @@ export class RegistroComponent {
         contrasena: ['', [Validators.required, Validators.minLength(6)]],
         confirmarContrasena: ['', Validators.required],
       },
-      { Validators: this.passwordsIguales }
+      { validators: this.passwordsIguales }
     );
   }
 
@@ -33,7 +36,7 @@ export class RegistroComponent {
     return pass === confirm ? null : { noCoincide: true };
   }
 
-  onsubmit() {
+  onSubmit() {
     this.enviado = true;
     if (this.registroForm.invalid) return;
 
