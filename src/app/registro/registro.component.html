@@ -1,1 +1,52 @@
-<p>registro works!</p>
+<div class="container">
+  <h2>Registro de Usuario</h2>
+
+  <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Nombre completo</label>
+      <input type="text" formControlName="nombre" placeholder="Ingrese su nombre">
+      <div *ngIf="enviado && f['nombre'].errors" class="error">
+        <span *ngIf="f['nombre'].errors['required']">El nombre es obligatorio.</span>
+        <span *ngIf="f['nombre'].errors['minlength']">Mínimo 3 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Usuario</label>
+      <input type="text" formControlName="usuario" placeholder="Nombre de usuario">
+      <div *ngIf="enviado && f['usuario'].errors" class="error">
+        <span *ngIf="f['usuario'].errors['required']">El usuario es obligatorio.</span>
+        <span *ngIf="f['usuario'].errors['minlength']">Mínimo 4 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Correo electrónico</label>
+      <input type="email" formControlName="email" placeholder="ejemplo@email.com">
+      <div *ngIf="enviado && f['email'].errors" class="error">
+        <span *ngIf="f['email'].errors['required']">El email es obligatorio.</span>
+        <span *ngIf="f['email'].errors['email']">Formato inválido.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" formControlName="contrasena" placeholder="********">
+      <div *ngIf="enviado && f['contrasena'].errors" class="error">
+        <span *ngIf="f['contrasena'].errors['required']">La contraseña es obligatoria.</span>
+        <span *ngIf="f['contrasena'].errors['minlength']">Mínimo 6 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Confirmar contraseña</label>
+      <input type="password" formControlName="confirmarContrasena" placeholder="********">
+      <div *ngIf="enviado && (f['confirmarContrasena'].errors || registroForm.errors?.['noCoincide'])" class="error">
+        <span *ngIf="f['confirmarContrasena'].errors?.['required']">Debe confirmar la contraseña.</span>
+        <span *ngIf="registroForm.errors?.['noCoincide']">Las contraseñas no coinciden.</span>
+      </div>
+    </div>
+
+    <button type="submit">Registrar</button>
+  </form>
+</div>
